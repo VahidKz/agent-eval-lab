@@ -1,0 +1,10 @@
+{
+  "name": "agent-eval-lab-report-tests",
+  "private": true,
+  "scripts": {
+    "test:report": "node scripts/check-report.cjs"
+  },
+  "devDependencies": {
+    "playwright": "1.61.1"
+  }
+}

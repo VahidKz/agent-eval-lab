@@ -1,0 +1,58 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  python:
+    name: Python ${{ matrix.python }}
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python: ['3.10', '3.12', '3.13']
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python }}
+          cache: pip
+      - run: python -m pip install -r requirements-dev.txt
+      - run: ruff check .
+      - run: ruff format --check .
+      - run: python -m unittest discover -v
+      - run: python -m build
+      - name: Check installed package and bundled data/template
+        shell: bash
+        run: |
+          python -m pip install dist/*.whl
+          cd "$RUNNER_TEMP"
+          agent-eval demo --strategy candidate --trials 1 --min-pass-rate 1 --out installed-report
+      - name: Generate full demo artifact
+        run: python -m agent_eval_lab demo --trials 3 --out reports/demo
+      - uses: actions/upload-artifact@v4
+        with:
+          name: demo-report-python-${{ matrix.python }}
+          path: reports/demo/
+
+  report-browser:
+    name: Report browser checks
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - run: npm ci
+      - run: npx playwright install --with-deps chromium
+      - run: python -m agent_eval_lab demo --trials 3 --out reports/demo
+      - run: npm run test:report

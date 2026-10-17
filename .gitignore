@@ -1,0 +1,15 @@
+__pycache__/
+*.py[cod]
+.venv/
+.env
+.env.*
+!.env.example
+*.egg-info/
+build/
+dist/
+.ruff_cache/
+reports/
+config/models.local.json
+.DS_Store
+Thumbs.db
+node_modules/

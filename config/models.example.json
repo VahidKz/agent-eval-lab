@@ -1,0 +1,14 @@
+{
+  "baseline": {
+    "model": "YOUR_BASELINE_MODEL_ID",
+    "input_per_million": null,
+    "output_per_million": null,
+    "cached_input_per_million": null
+  },
+  "candidate": {
+    "model": "YOUR_CANDIDATE_MODEL_ID",
+    "input_per_million": null,
+    "output_per_million": null,
+    "cached_input_per_million": null
+  }
+}
