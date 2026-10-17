@@ -39,6 +39,9 @@ Each was fixed with regression coverage before publishing.
 - Ruff lint and formatting checks passed. The source distribution and wheel built;
   installed-package execution is checked separately to verify bundled data/templates.
 - The repository CI additionally tests Python 3.10, 3.12, and 3.13 and Chromium.
+- The first remote CI run passed all four jobs. Deprecated Action versions were
+  updated to current published releases, and Ubuntu 24.04 was pinned to avoid the
+  announced imminent runner-image change. The final CI revision is verified remotely.
 
 Notes: no paid live-model evaluation was run. Mocked protocol tests do not establish
 real model/account compatibility. The synthetic public dataset and scripted demo do

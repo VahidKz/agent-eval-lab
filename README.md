@@ -170,7 +170,7 @@ ruff format --check .
 python -m build
 ```
 
-Optional browser checks require Node.js 20+:
+Optional browser checks require Node.js 22+:
 
 ```bash
 npm ci
